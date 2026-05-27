@@ -1,23 +1,36 @@
+// src/components/Nav.jsx
 import React from 'react';
 import './Nav.css'; 
 
+// 1. Import the specific path vector string from the mdi package
+import { mdiTortoise } from '@mdi/js';
+
+// 2. Import standard react-icons for your other menu buttons
 import { 
   MdDashboard, 
-  MdPets, 
   MdAssignment, 
   MdChat, 
   MdAttachMoney, 
   MdSettings,
-  MdAccountCircle
+  MdAccountCircle,
+  MdLogout 
 } from 'react-icons/md';
 
-// We catch 'isMenuOpen', 'currentPage', and 'onPageChange' from App.jsx
-function Nav({ isMenuOpen, currentPage, onPageChange }) {
+function Nav({ isMenuOpen, currentPage, onPageChange, onUserLogout }) {
   
-  // We removed the 'active' property from here because App.jsx tracks it now
+  // 3. Set up the navigation items. 
+  // We use a clean, native HTML <svg> box for My Tortoises and feed your 
+  // mdiTortoise import variable right into a <path d={...} /> attribute.
   const navItems = [
     { name: 'Dashboard', icon: <MdDashboard size={22} /> },
-    { name: 'My Tortoises', icon: <MdPets size={22} /> },
+    { 
+      name: 'My Tortoises', 
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d={mdiTortoise} />
+        </svg>
+      )
+    },
     { name: 'Health Logs', icon: <MdAssignment size={22} /> },
     { name: 'AI Assistant', icon: <MdChat size={22} /> },
     { name: 'Expense Tracker', icon: <MdAttachMoney size={22} /> },
@@ -31,6 +44,7 @@ function Nav({ isMenuOpen, currentPage, onPageChange }) {
 
   return (
     <aside className={sidebarClassNames}>
+      
       <div>
         <div className="logo-section">
           <div className="logo-branding-left">
@@ -46,7 +60,6 @@ function Nav({ isMenuOpen, currentPage, onPageChange }) {
           {navItems.map(function(item, index) {
             let finalClassNames = "nav-item-btn";
 
-            // If this item's name matches the 'currentPage' state in App.jsx, highlight it!
             if (item.name === currentPage) {
               finalClassNames = "nav-item-btn active";
             }
@@ -56,7 +69,7 @@ function Nav({ isMenuOpen, currentPage, onPageChange }) {
                 key={index} 
                 className={finalClassNames}
                 onClick={function() {
-                  onPageChange(item.name); // Tells App.jsx which button was clicked
+                  onPageChange(item.name); 
                 }}
               >
                 <span className="nav-icon">{item.icon}</span>
@@ -66,6 +79,16 @@ function Nav({ isMenuOpen, currentPage, onPageChange }) {
           })}
         </nav>
       </div>
+
+      <div className="sidebar-footer-action">
+        <button className="nav-logout-btn" onClick={onUserLogout}>
+          <span className="logout-icon-wrapper">
+            <MdLogout size={22} />
+          </span>
+          <span className="nav-text">Sign Out</span>
+        </button>
+      </div>
+
     </aside>
   );
 }

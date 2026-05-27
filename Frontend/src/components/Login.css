@@ -1,0 +1,91 @@
+/* src/components/Login.css */
+
+.login-screen-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #f9fafb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999; /* Forces the login panel to cover the sidebar and main views completely */
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.login-card {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  border: 1px solid #f3f4f6;
+  width: 100%;
+  max-width: 380px;
+  box-sizing: border-box;
+}
+
+.login-header-group {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.login-logo-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.login-subtitle {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.login-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.login-input-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.login-input-field {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.login-input-field:focus {
+  border-color: #059669; /* Emerald green focus ring */
+}
+
+.login-submit-btn {
+  width: 100%;
+  background-color: #059669; /* Emerald green button */
+  color: #ffffff;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background-color 0.2s;
+}
+
+.login-submit-btn:hover {
+  background-color: #047857;
+}
