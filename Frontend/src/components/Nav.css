@@ -1,0 +1,106 @@
+/* ==========================================================================
+   SIDEBAR CONTAINER
+   ========================================================================== */
+.sidebar-container {
+  width: 256px;               
+  height: 100vh;              
+  background-color: #ffffff;  
+  border-right: 1px solid #f3f4f6; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  position: fixed;            
+  left: 0;
+  top: 0;
+  box-sizing: border-box;     
+}
+
+/* ==========================================================================
+   LOGO & PROFILE INNER BOX LAYOUT
+   ========================================================================== */
+.logo-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Pulls logo branding to left, profile icon to right */
+  margin-bottom: 40px;        
+  padding: 0 4px;
+}
+
+.logo-branding-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-text {
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: #1f2937;             
+  letter-spacing: -0.025em;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.header-profile-avatar {
+  color: #9ca3af;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.header-profile-avatar:hover {
+  color: #4b5563;
+}
+
+/* ==========================================================================
+   NAVIGATION LINKS LIST
+   ========================================================================== */
+.nav-links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;                   
+}
+
+.nav-item-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  border-radius: 12px;        
+  font-weight: 500;
+  font-size: 0.875rem;
+  background: none;           
+  border: none;               
+  cursor: pointer;            
+  text-align: left;
+  color: #6b7280;             
+  font-family: system-ui, -apple-system, sans-serif;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-item-btn:hover {
+  background-color: #f9fafb;  
+  color: #111827;             
+}
+
+.nav-item-btn.active {
+  background-color: #f9fafb;
+  color: #111827;
+  border-left: 4px solid #059669; 
+  padding-left: 12px;         
+  border-radius: 0px 12px 12px 0px; 
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+  color: #9ca3af;             
+}
+
+.nav-item-btn:hover .nav-icon {
+  color: #4b5563;
+}
+
+.nav-item-btn.active .nav-icon {
+  color: #059669;             
+}

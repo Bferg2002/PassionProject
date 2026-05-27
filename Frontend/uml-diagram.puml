@@ -1,0 +1,89 @@
+@startuml ShellSchedule_Frontend_Visual
+
+' Styling to mimic hand-drawn/clean wireframe boxes
+skinparam BackgroundColor #F4F6F8
+skinparam BoxPadding 10
+skinparam ComponentStyle rectangle
+
+skinparam rectangle {
+    BackgroundColor #FFFFFF
+    BorderColor #1A1A1A
+    BorderThickness 1.5
+    FontName "Helvetica"
+    FontSize 12
+}
+
+skinparam arrow {
+    Color #4A4A4A
+    Thickness 1.5
+}
+
+title ShellSchedule - React Architecture (src/ Directory Mapping)
+
+' --- MAIN ENTRY POINT ---
+rectangle "src/main.jsx" as Main #D1E7DD
+
+' --- ROUTING LAYER ---
+rectangle "src/App.jsx\n(React Router / Context)" as App #CFE2FF
+
+' --- GLOBAL LAYOUTS ---
+package "src/layouts/" {
+    rectangle "Sidebar.jsx\n(Global Navigation)" as Sidebar #FFF3CD
+}
+
+' --- PAGE LEVEL VIEWS ---
+package "src/pages/" {
+    rectangle "DashboardPage.jsx" as DashboardView
+    rectangle "ExpensePage.jsx" as ExpenseView
+    rectangle "AIChatPage.jsx" as AIChatView
+}
+
+' --- SUB-COMPONENTS LAYER ---
+package "src/components/" {
+    ' Dashboard Components
+    rectangle "GrowthChart.jsx\n(Chart.js Line)" as GrowthChart
+    rectangle "UvbGauge.jsx\n(Countdown Ring)" as UvbGauge
+    rectangle "HusbandryChecklist.jsx\n(Checkboxes)" as HusbandryChecklist
+    
+    ' Expense Components
+    rectangle "ExpensePieChart.jsx\n(Chart.js Pie)" as ExpensePieChart
+    rectangle "ExpenseTable.jsx\n(PostgreSQL Rows)" as ExpenseTable
+    
+    ' AI Components
+    rectangle "ChatBubbleStream.jsx\n(Gemini Messages)" as ChatStream
+}
+
+' --- BACKEND INTERFACE ---
+queue "Spring Boot REST API\n(Java Backend)" as API #E2E3E5
+
+' --- COMPONENT RELATIONSHIPS AND FLOW ---
+
+Main --> App : Injects into DOM >
+
+' App contains routes that point to specific pages
+App --> DashboardView : URL: /dashboard >
+App --> ExpenseView : URL: /expenses >
+App --> AIChatView : URL: /ai-assistant >
+
+' Sidebar stays persistent alongside views
+App --> Sidebar : Rendered globally >
+
+' Dashboard layout assembly
+DashboardView --> GrowthChart : renders >
+DashboardView --> UvbGauge : renders >
+DashboardView --> HusbandryChecklist : renders >
+
+' Expense page layout assembly
+ExpenseView --> ExpensePieChart : renders >
+ExpenseView --> ExpenseTable : renders >
+
+' AI Chat layout assembly
+AIChatView --> ChatStream : renders >
+
+' --- DATA FETCHING FLOW TO BACKEND ---
+GrowthChart ..> API : HTTP GET /api/pets/{id}/weights
+UvbGauge ..> API : HTTP GET /api/pets/{id}/uvb-status
+ExpenseTable ..> API : HTTP GET /POST /api/expenses
+ChatStream ..> API : HTTP POST /api/ai/chat
+
+@enduml
