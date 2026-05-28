@@ -1,4 +1,4 @@
-# PassionProject
+# ShellSchedule
 
 ## Elevator Pitch
 ShellSchedule is a specialized full-stack pet care dashboard designed for chelonian (tortoise and turtle) owners to manage the health, habitat conditions, and ongoing costs of long-lived reptiles. The application features automated husbandry countdown alerts, an explicit category-based expense ledger, and an integrated herpetology AI assistant powered by Gemini to provide immediate, science-based species care data.
