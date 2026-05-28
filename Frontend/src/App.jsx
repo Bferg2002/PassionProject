@@ -1,16 +1,24 @@
+// src/App.jsx
 import React, { useState } from 'react';
 import Nav from './components/Nav'; 
+import Login from './components/Login'; 
 import './App.css'; 
 import { MdMenu } from 'react-icons/md';
 
 function App() {
-  // 1. Manage menu open/close visibility state
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
-  
-  // 2. Manage which tab page is currently active view
   const [activeTab, setActiveTab] = useState('Dashboard');
 
-  // Toggles the sidebar view state
+  function handleLoginTrigger() {
+    setIsLoggedIn(true);
+  }
+
+  function handleLogoutTrigger() {
+    setIsLoggedIn(false);
+    setActiveTab('Dashboard'); // Clear the view focus state back to default
+  }
+
   function handleToggleMenu() {
     if (isOpen === true) {
       setIsOpen(false); 
@@ -19,29 +27,35 @@ function App() {
     }
   }
 
-  // Updates the active tab screen state when clicked from the Nav list
   function handlePageSelection(pageName) {
     setActiveTab(pageName);
   }
 
-  // Handle dynamic sidebar frame tracking shifting classes
   let wrapperClassNames = "main-layout-wrapper";
   if (isOpen === true) {
     wrapperClassNames = "main-layout-wrapper shifted";
   }
 
+  if (isLoggedIn === false) {
+    return <Login onSuccessfulLogin={handleLoginTrigger} />;
+  }
+
   return (
     <div className={wrapperClassNames}>
       
-      {/* We pass state managers into our Nav layer component */}
+      {/* CRITICAL REFACTOR: We add onUserLogout property mapping here.
+        This grants Nav.jsx explicit permission to execute handleLogoutTrigger.
+      */}
       <Nav 
         isMenuOpen={isOpen} 
         currentPage={activeTab} 
         onPageChange={handlePageSelection} 
+        onUserLogout={handleLogoutTrigger}
       />
 
       <main className="content-inner-padding">
         
+        {/* Cleaned layout: The top row now only holds our hamburger control toggle */}
         <button className="menu-toggle-icon-btn" onClick={handleToggleMenu}>
           <MdMenu size={24} />
         </button>
