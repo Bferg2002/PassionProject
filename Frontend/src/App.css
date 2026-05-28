@@ -1,10 +1,8 @@
-/* App.css */
-
 body {
   margin: 0;
   padding: 0;
   font-family: system-ui, -apple-system, sans-serif;
-  background-color: #f9fafb; /* App-wide light background hue */
+  background-color: #eefbf4; /* Soft, light mint-green page background */
 }
 
 /* This wrapper acts as the parent grid window layer.
@@ -16,6 +14,7 @@ body {
   box-sizing: border-box; /* Includes the padding within structural calculations */
   display: flex;
   flex-direction: column;
+  background-color: #eefbf4; /* Matches light mint-green theme backdrop */
 }
 
 /* This element controls the main text padding for your headings and future charts.
@@ -55,7 +54,7 @@ body {
    Notice the padding-left is 0px because the navbar is hidden.
 */
 .main-layout-wrapper {
-  background-color: #f9fafb; 
+  background-color: #eefbf4; 
   min-height: 100vh;
   padding-left: 0px; 
   box-sizing: border-box;
@@ -69,30 +68,51 @@ body {
   padding-left: 256px;
 }
 
-
 /* ==========================================================================
    HAMBURGER MENU ICON BUTTON STYLE
    ========================================================================== */
 .menu-toggle-icon-btn {
-  background: none;             /* Erases native button gray background */
+  background-color: #048a60;    /* Solid primary green button background */
   border: none;                 /* Erases default ugly black border */
   padding: 8px;
-  border-radius: 50%;           /* Makes it a perfectly round circle hover shape */
+  border-radius: 8px;           /* Rounded corner box layout style */
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #374151;               /* Charcoal gray color for the lines */
+  color: #ffffff;               /* Crisp white icon lines */
   margin-bottom: 24px;
+  width: 48px;
+  height: 48px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   transition: background-color 0.2s, color 0.2s;
 }
 
 /* Hover state mimics modern app bars when pointing at the icon */
 .menu-toggle-icon-btn:hover {
-  background-color: green;   /* Adds a soft gray circular background when hovering */
-  color: #111827;               /* Darkens the icon lines on hover */
+  background-color: #036e4d;    /* Deeper primary green tone on hover */
 }
 
 .menu-toggle-icon-btn:focus {
   outline: none;                /* Cleans up focus outline ring boxes */
+}
+
+/* ==========================================================================
+   DASHBOARD LAYER CONTAINER CARD
+   ========================================================================== */
+.content-inner-padding > header {
+  background-color: #ffffff;    /* Large primary white panel background */
+  border-radius: 24px;          /* Smooth rounded layout corners */
+  padding: 80px 40px;           /* Open padding workspace frame */
+  box-sizing: border-box;
+  width: 100%;
+  text-align: center;           /* Center aligns page context text block */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.content-inner-padding h1 {
+  font-size: 3rem;
+  color: #091e16;               /* Ultra-dark deep black green for text contrast */
+  margin: 0;
+  font-weight: 800;
 }
