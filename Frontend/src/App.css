@@ -116,3 +116,163 @@ body {
   margin: 0;
   font-weight: 800;
 }
+
+/* ==========================================================================
+   DASHBOARD WORKSPACE PAGE INTERIORS
+   ========================================================================== */
+
+.dashboard-page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+}
+
+/* 1. Top Stats Cards Grid layout styles */
+.stats-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.stat-card {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stat-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.age-bg { background-color: #fef3c7; color: #d97706; }
+.weight-bg { background-color: #dcfce7; color: #15803d; }
+.scl-bg { background-color: #e0f2fe; color: #0369a1; }
+
+.stat-details {
+  display: flex;
+  flex-direction: column;
+}
+.stat-label { font-size: 0.85rem; color: #64748b; font-weight: 500; }
+.stat-value { font-size: 1.25rem; font-weight: 700; color: #091e16; }
+
+/* 2. Chart Component Container */
+.chart-wrapper-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+}
+.chart-header {
+  margin-bottom: 20px;
+  text-align: left !important;
+}
+.chart-header h3 {
+  margin: 0; font-size: 1.25rem; color: #091e16; font-weight: 700;
+}
+.chart-subtitle { font-size: 0.85rem; color: #64748b; }
+
+/* 3. Split Two Column Widget Grid layout container frame */
+.dashboard-lower-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .dashboard-lower-layout { grid-template-columns: 1fr; }
+}
+
+.widget-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: left;
+}
+
+.widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.widget-header h4 { margin: 0; font-size: 1.1rem; color: #091e16; }
+.widget-date-badge { 
+  background-color: #eefbf4; color: #048a60; font-size: 0.75rem; 
+  padding: 4px 10px; border-radius: 20px; font-weight: 600;
+}
+
+/* Husbandry Checklist UI elements tracking */
+.checklist-wrapper { display: flex; flex-direction: column; gap: 8px; }
+.checklist-item {
+  display: flex; align-items: center; gap: 12px; padding: 12px;
+  border-radius: 10px; background-color: #f8fafc; cursor: pointer;
+  transition: background-color 0.15s;
+}
+.checklist-item:hover { background-color: #f1f5f9; }
+.check-toggle-btn { background: none; border: none; padding: 0; cursor: pointer; display: flex; }
+.task-text { font-size: 0.95rem; color: #334155; font-weight: 500; }
+.checklist-item.done .task-text { text-decoration: line-through; color: #94a3b8; }
+
+/* Quick Action Box Panel elements styling */
+.action-launcher-card {
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  padding: 40px 20px;
+}
+.action-launcher-card h4 { margin: 0; font-size: 1.25rem; color: #091e16; }
+.action-hint-text { font-size: 0.9rem; color: #64748b; margin: 8px 0 24px 0; text-align: center; }
+
+.dashboard-primary-action-btn {
+  background-color: #048a60; color: #ffffff; border: none;
+  padding: 12px 24px; border-radius: 12px; font-weight: 600; font-size: 0.95rem;
+  cursor: pointer; display: flex; align-items: center; gap: 8px;
+  box-shadow: 0 4px 12px rgba(4, 138, 96, 0.15);
+  transition: background-color 0.2s, transform 0.1s;
+}
+.dashboard-primary-action-btn:hover { background-color: #036e4d; }
+.dashboard-primary-action-btn:active { transform: scale(0.98); }
+
+/* Update the top layout grid to cleanly break into 4 responsive columns */
+.stats-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+/* Custom layout wrappers for the radial UV gauge design */
+.uv-gauge-wrapper {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.uv-gauge-text {
+  position: absolute;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #091e16;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.uv-bulb-card {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+}

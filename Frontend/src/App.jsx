@@ -1,101 +1,85 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Nav from './components/Nav'; 
+import Login from './components/Login'; 
 import './App.css'; 
 import { MdMenu } from 'react-icons/md';
 
-function App() {
-  // 1. Manage menu open/close visibility state
-  const [isOpen, setIsOpen] = useState(true);
-  
-  // 2. Manage which tab page is currently active view
-  const [activeTab, setActiveTab] = useState('Dashboard');
+// 1. IMPORT YOUR SEPARATE PAGE COMPONENTS HERE
+import Dashboard from './pages/Dashboard';
+import MyTortoises from './pages/MyTortoises';
+import HealthLogs from './pages/HealthLogs';
+import AIAssistant from './pages/AIAssistant';
+import ExpenseTracker from './pages/ExpenseTracker';
+import AccountSettings from './pages/AccountSettings';
 
-  // Toggles the sidebar view state
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
+
   function handleToggleMenu() {
     setIsOpen(!isOpen);
   }
 
-  // Updates the active tab screen state when clicked from the Nav list
-  function handlePageSelection(pageName) {
-    setActiveTab(pageName);
+  function handleLogin() {
+    setIsLoggedIn(true);
   }
 
-  // Handle dynamic sidebar frame tracking shifting classes
+  function handleLogout() {
+    setIsLoggedIn(false);
+  }
+
   let wrapperClassNames = "main-layout-wrapper";
   if (isOpen === true) {
     wrapperClassNames = "main-layout-wrapper shifted";
   }
 
-  // Clean subtext inline style for a polished green/white theme
-  const subtextStyle = { color: '#166534', marginTop: '4px', fontWeight: '500' };
+  // Unauthenticated view bypasses application structural frames entirely
+  if (!isLoggedIn) {
+    return <Login onSuccessfulLogin={handleLogin} />;
+  }
 
+  // Authenticated layout wrapper
   return (
-    <div className={wrapperClassNames}>
-      
-      {/* We pass state managers into our Nav layer component */}
-      <Nav 
-        isMenuOpen={isOpen} 
-        currentPage={activeTab} 
-        onPageChange={handlePageSelection} 
-      />
-
-      <main className="content-inner-padding">
+    <Router>
+      <div className={wrapperClassNames}>
         
-        <button className="menu-toggle-icon-btn" onClick={handleToggleMenu}>
-          <MdMenu size={24} />
-        </button>
-        
-        {/* DYNAMIC SCREEN VIEWS SELECTION BLOCK */}
-        {activeTab === 'Dashboard' && (
-          <header>
-            <h1>Dashboard</h1>
-            <p style={subtextStyle}>
-              Track your tortoise health, husbandry, and care expenses
-            </p>
-          </header>
-        )}
+        {/* Sidebar Nav stays mounted in place across all routes */}
+        <Nav isMenuOpen={isOpen} onLogout={handleLogout} />
 
-        {activeTab === 'My Tortoises' && (
-          <header>
-            <h1>My Tortoises</h1>
-            <p style={subtextStyle}>View profiles and add new reptilian family members</p>
-          </header>
-        )}
+        <main className="content-inner-padding">
+          
+          <button className="menu-toggle-icon-btn" onClick={handleToggleMenu}>
+            <MdMenu size={24} />
+          </button>
+          
+          {/* THE DASHBOARD WHITE CONTAINER INTERIOR CANVASES */}
+          <div className="dashboard-content-card">
+            <Routes>
+              {/* Default landing redirects straight to dashboard url route */}
+              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+              
+              {/* 2. PLUG IN THE IMPORTED COMPONENTS CLEANLY */}
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/my-tortoises" element={<MyTortoises />} />
+              
+              {/* Note: This path is set to /health-logs to perfectly match your Nav.jsx link */}
+              <Route path="/health-logs" element={<HealthLogs />} />
+              
+              {/* Note: This path is set to /ai-assistant to perfectly match your Nav.jsx link */}
+              <Route path="/ai-assistant" element={<AIAssistant />} />
+              
+              {/* Note: This path is set to /expense-tracker to perfectly match your Nav.jsx link */}
+              <Route path="/expense-tracker" element={<ExpenseTracker />} />
+              
+              {/* Note: This path is set to /account-settings to perfectly match your Nav.jsx link */}
+              <Route path="/account-settings" element={<AccountSettings />} />
+            </Routes>
+          </div>
 
-        {activeTab === 'Health Logs' && (
-          <header>
-            <h1>Health Logs</h1>
-            <p style={subtextStyle}>Log shell measurements and scale weight records</p>
-          </header>
-        )}
-
-        {activeTab === 'AI Assistant' && (
-          <header>
-            <h1>Herpetologist AI Assistant</h1>
-            <p style={subtextStyle}>Ask Gemini explicit science-based husbandry questions</p>
-          </header>
-        )}
-
-        {activeTab === 'Expense Tracker' && (
-          <header>
-            <h1>Expense Tracker</h1>
-            <p style={subtextStyle}>Manage dietary, enclosure, and medical budget metrics</p>
-          </header>
-        )}
-
-        {activeTab === 'Account Settings' && (
-          <header>
-            <h1>Account Settings</h1>
-            <p style={subtextStyle}>Manage profile visibility and sensitive personal data</p>
-          </header>
-        )}
-
-        <section style={{ marginTop: '32px' }}>
-          {/* Component card slots sit here */}
-        </section>
-
-      </main>
-    </div>
+        </main>
+      </div>
+    </Router>
   );
 }
 

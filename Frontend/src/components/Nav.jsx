@@ -1,11 +1,12 @@
 // src/components/Nav.jsx
 import React from 'react';
+import { NavLink } from 'react-router-dom'; // 1. Import NavLink from react-router-dom
 import './Nav.css'; 
 
-// 1. Import the specific path vector string from the mdi package
+// Import the specific path vector string from the mdi package
 import { mdiTortoise } from '@mdi/js';
 
-// 2. Import standard react-icons for your other menu buttons
+// Import standard react-icons for your other menu buttons
 import { 
   MdDashboard, 
   MdAssignment, 
@@ -16,25 +17,26 @@ import {
   MdLogout 
 } from 'react-icons/md';
 
-function Nav({ isMenuOpen, currentPage, onPageChange, onUserLogout }) {
+// 2. Note: We removed 'currentPage' and 'onPageChange' since URLs track the path now!
+// Note: Changed prop name to 'onLogout' to match the handler name we passed from App.jsx
+function Nav({ isMenuOpen, onLogout }) {
   
-  // 3. Set up the navigation items. 
-  // We use a clean, native HTML <svg> box for My Tortoises and feed your 
-  // mdiTortoise import variable right into a <path d={...} /> attribute.
+  // 3. Set up the navigation items with their respective URL route paths instead of state strings
   const navItems = [
-    { name: 'Dashboard', icon: <MdDashboard size={22} /> },
+    { name: 'Dashboard', path: '/dashboard', icon: <MdDashboard size={22} /> },
     { 
       name: 'My Tortoises', 
+      path: '/my-tortoises',
       icon: (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
           <path d={mdiTortoise} />
         </svg>
       )
     },
-    { name: 'Health Logs', icon: <MdAssignment size={22} /> },
-    { name: 'AI Assistant', icon: <MdChat size={22} /> },
-    { name: 'Expense Tracker', icon: <MdAttachMoney size={22} /> },
-    { name: 'Account Settings', icon: <MdSettings size={22} /> },
+    { name: 'Health Logs', path: '/health-logs', icon: <MdAssignment size={22} /> },
+    { name: 'AI Assistant', path: '/ai-assistant', icon: <MdChat size={22} /> },
+    { name: 'Expense Tracker', path: '/expense-tracker', icon: <MdAttachMoney size={22} /> },
+    { name: 'Account Settings', path: '/account-settings', icon: <MdSettings size={22} /> },
   ];
 
   let sidebarClassNames = "sidebar-container";
@@ -58,30 +60,26 @@ function Nav({ isMenuOpen, currentPage, onPageChange, onUserLogout }) {
 
         <nav className="nav-links-list">
           {navItems.map(function(item, index) {
-            let finalClassNames = "nav-item-btn";
-
-            if (item.name === currentPage) {
-              finalClassNames = "nav-item-btn active";
-            }
-
             return (
-              <button 
+              /* 4. Use NavLink with a function inside className to automatically check if the link is active */
+              <NavLink 
                 key={index} 
-                className={finalClassNames}
-                onClick={function() {
-                  onPageChange(item.name); 
+                to={item.path}
+                className={function({ isActive }) {
+                  return isActive ? "nav-item-btn active" : "nav-item-btn";
                 }}
               >
                 <span className="nav-icon">{item.icon}</span>
                 <span className="nav-text">{item.name}</span>
-              </button>
+              </NavLink>
             );
           })}
         </nav>
       </div>
 
       <div className="sidebar-footer-action">
-        <button className="nav-logout-btn" onClick={onUserLogout}>
+        {/* Changed to use the onLogout handler matching App.jsx */}
+        <button className="nav-logout-btn" onClick={onLogout}>
           <span className="logout-icon-wrapper">
             <MdLogout size={22} />
           </span>
